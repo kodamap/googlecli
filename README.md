@@ -120,16 +120,17 @@ $ googlectl group show members@yourdomain.com
 ```
 
 # Misc
-- To rset credentilas , just remove credentials directory
+- To reset credentilas , just remove credentials directory
 ```sh
 $ rm -rf ~/.credentials/
 ```
+
 - 'ascii' codec can't Error
 Use Python3.  ( Error occurs when you use python2x )
+```sh
 $ googlectl group list -f csv
 'ascii' codec can't decode byte 0xe3 in position 31: ordinal not in range(128)
 ```
-
 
 # Reference
 - Admin Directory API
