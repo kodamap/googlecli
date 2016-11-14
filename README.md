@@ -124,9 +124,8 @@ $ googlectl group show members@yourdomain.com
 ```sh
 $ rm -rf ~/.credentials/
 ```
-
-- 'ascii' codec can't Error
-Use Python3.  ( Error occurs when you use python2x )
+- ascii codec can't Error
+Error occurs when you use python2.7+ . Use Python3.
 ```sh
 $ googlectl group list -f csv
 'ascii' codec can't decode byte 0xe3 in position 31: ordinal not in range(128)
