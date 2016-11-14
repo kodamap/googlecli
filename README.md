@@ -19,7 +19,7 @@ https://developers.google.com/admin-sdk/directory/v1/quickstart/python
  - Download the json file (client_secret_xxxxxxxxx.json)
  - Move this file to your working directory and rename it "client_secret.json"
 
- - Python3 (Recommeded) 
+- Python3 (Recommeded) 
 https://github.com/yyuu/pyenv
 
 ```sh
