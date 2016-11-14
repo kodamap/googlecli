@@ -44,7 +44,7 @@ $ python --version # Python 3.5.2
 ```
 
 # Install 
-- CentOS7
+- Instration on CentOS7
 ```sh
 $ git clone https://github.com/kodamap/googlecli
 $ cd googlecli
@@ -53,10 +53,10 @@ $ pip install -r requirements.txt
 $ python setup.py build
 $ python setup.py install
 ```
-- store the client_secret.json that you creatd earlier.
+- Store the client_secret.json that you created earlier.
 ```sh
 $ ls  ~/client_secret.json
-$ /home/user/client_secret.json
+/home/user/client_secret.json
 ```
 
 # How to use
