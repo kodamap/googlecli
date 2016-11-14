@@ -18,18 +18,19 @@ https://developers.google.com/admin-sdk/directory/v1/quickstart/python
  - Select "Other" Application type and input the name of Client ID
  - Download the json file (client_secret_xxxxxxxxx.json)
  - Move this file to your working directory and rename it "client_secret.json"
- 
-- Python3 (Optinal)
+
+ - Python3 (Recommeded) 
 https://github.com/yyuu/pyenv
+
+```sh
+$ sudo yum install zlib-devel bzip2 bzip2-devel readline-devel sqlite sqlite-devel openssl-devel -y
 ```
-# yum install zlib-devel bzip2 bzip2-devel readline-devel sqlite sqlite-devel openssl-devel -y
-```
-you may also need patch and gcc.
-```
-# yum -y install patch gcc git
+you may also need to install patch and gcc.
+```sh
+$ sudo yum -y install patch gcc make git
 ```
 install python3
-```
+```sh
 $ git clone https://github.com/yyuu/pyenv.git ~/.pyenv
 $ echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bash_profile
 $ echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bash_profile
@@ -44,7 +45,7 @@ $ python --version # Python 3.5.2
 
 # Install 
 - CentOS7
-```
+```sh
 $ git clone https://github.com/kodamap/googlecli
 $ cd googlecli
 $ pip install --upgrade google-api-python-client
@@ -53,14 +54,14 @@ $ python setup.py build
 $ python setup.py install
 ```
 - store the client_secret.json that you creatd earlier.
-```
+```sh
 $ ls  ~/client_secret.json
 $ /home/user/client_secret.json
 ```
 
 # How to use
 You need to permit the access to your directory at the first time.
-The permissons you will asked for are 
+The permissions that you will be asked for are ....
  - View users on your domain
  - View groups on your domain
  - View group subscriptions on your domain
@@ -75,7 +76,7 @@ Enter verification code: <---- ** Input the verification code**
 ## examle
 list command returns 20 results ( no -n option : default value 20)
 - user list
-```
+```sh
 $ googlectl user list
 +-----------------------------+---------+
 | PrimaryEmail                | isAdmin |
@@ -90,7 +91,7 @@ $ googlectl
 (googlectl) user list
 ```
 - group list
-```
+```sh
 $ googlectl group list
 +----------------------+-------------+
 | Email                | Description |
@@ -117,11 +118,18 @@ $ googlectl user show alice@yourdomain.com
 ```sh
 $ googlectl group show members@yourdomain.com
 ```
-- Misc
-To rset credentilas , just remove credentials directory
+
+# Misc
+- To rset credentilas , just remove credentials directory
 ```sh
 $ rm -rf ~/.credentials/
 ```
+- 'ascii' codec can't Error
+Use Python3.  ( Error occurs when you use python2x )
+$ googlectl group list -f csv
+'ascii' codec can't decode byte 0xe3 in position 31: ordinal not in range(128)
+```
+
 
 # Reference
 - Admin Directory API
