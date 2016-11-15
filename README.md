@@ -131,6 +131,11 @@ Error occurs when you use python2.7+ . Use Python3.
 $ googlectl group list -f csv
 'ascii' codec can't decode byte 0xe3 in position 31: ordinal not in range(128)
 ```
+Check your LANG Environment variable. try "export LANG=en_US.UTF-8".
+```sh
+$ googlectl user show alice@yourdomain
+'ascii' codec can't encode characters in position 371-373: ordinal not in range(128)
+```
 
 # Reference
 - Admin Directory API
