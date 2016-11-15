@@ -137,6 +137,21 @@ $ googlectl user show alice@yourdomain
 'ascii' codec can't encode characters in position 371-373: ordinal not in range(128)
 ```
 
+# for docker
+```sh
+git clone https://github.com/kodamap/googlecli
+cd googlecli
+docker build -t centos/googlecli:ver1.0 dockerfiles
+docker run -itd --name googlecli centos/googlecli:ver1.0 /bin/bash
+docker ps
+CONTAINER ID        IMAGE                     COMMAND             CREATED             STATUS              PORTS               NAMES
+fc3d02b55084        centos/googlecli:ver1.0   "/bin/bash"         2 minutes ago       Up 2 minutes                            googlecli
+docker exec -it googlecli /bin/bash
+[root@fc3d02b55084 /]# . /root/.bash_profile
+[root@fc3d02b55084 /]# googlectl -h
+usage: googlectl [--version] [-v | -q] [--log-file LOG_FILE] [-h] [--debug]
+```
+
 # Reference
 - Admin Directory API
 https://developers.google.com/resources/api-libraries/documentation/admin/directory_v1/python/latest/index.html
