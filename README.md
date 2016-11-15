@@ -52,6 +52,7 @@ $ pip install --upgrade google-api-python-client
 $ pip install -r requirements.txt
 $ python setup.py build
 $ python setup.py install
+$ . ~/.bash_profile
 ```
 - Store the client_secret.json that you created earlier.
 ```sh
