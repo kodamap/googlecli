@@ -7,7 +7,7 @@ from cliff.lister import Lister
 import googlectl.libgooglectl
 
 def _append_global_args(parser):
-        parser.add_argument('-n', '--number', \
+    parser.add_argument('-n', '--number', \
         action='store', \
         nargs='?', \
         const=None, \
@@ -16,7 +16,7 @@ def _append_global_args(parser):
         choices=None, \
         help='The numbers of list (default: 20)', \
         metavar=None)
-        return parser
+    return parser
 
 class UserList(Lister):
     "Show a list of Users in the domain."

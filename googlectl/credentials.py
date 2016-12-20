@@ -1,3 +1,8 @@
+#
+# Reference:
+# Python Quickstart https://developers.google.com/admin-sdk/directory/v1/quickstart/python
+#
+
 from __future__ import print_function
 import httplib2
 import os

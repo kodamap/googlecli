@@ -2,27 +2,16 @@ import googlectl.credentials
 import httplib2
 from apiclient import discovery
 
-def create_service():
-    credential = googlectl.credentials.get_credentials()
-    http = credential.authorize(httplib2.Http())
-    service = discovery.build('admin', 'directory_v1', http=http)
-    return service
-
 class Client(object):
     def __init__(self):
-        pass
-        #self.client = googlectl.Credentials.get_credentials()
-        #http = self.client.authorize(httplib2.Http())
-        #service = discovery.build('admin', 'directory_v1', http=http)
-
-        #if not self.service:
-        #    raise RuntimeError('API test failed')
+        self.credentials = googlectl.credentials.get_credentials()
+        self.http = self.credentials.authorize(httplib2.Http())
+        self.service = discovery.build('admin', 'directory_v1', http=self.http)
 
     def list_users(self, number):
         print('Getting the first ' + str(number) +' users in the domain')
 
-        service = create_service()
-        result = service.users().list(
+        result = self.service.users().list(
             customer='my_customer',
             maxResults=number,
             orderBy='email').execute()
@@ -38,8 +27,7 @@ class Client(object):
     def list_groups(self, number):
         print('Getting the first ' + str(number) +' groups in the domain')
 
-        service = create_service()
-        result = service.groups().list(
+        result = self.service.groups().list(
             customer='my_customer',
             maxResults=number
             ).execute()
@@ -55,8 +43,7 @@ class Client(object):
     def list_members(self, groupid, number):
         print('Getting the first ' + str(number) +' members in the group')
 
-        service = create_service()
-        result = service.members().list(
+        result = self.service.members().list(
             groupKey=groupid,
             maxResults=number).execute()
 
@@ -71,8 +58,7 @@ class Client(object):
     def show_user(self, email):
         print('Getting the infomation details: ' + email)
 
-        service = create_service()
-        result = service.users().get(userKey=email).execute()
+        result = self.service.users().get(userKey=email).execute()
 
         if not result:
             return {}
@@ -98,8 +84,7 @@ class Client(object):
     def show_group(self, groupid):
         print('Getting the infomation details: ' + groupid)
 
-        service = create_service()
-        result = service.groups().get(groupKey=groupid).execute()
+        result = self.service.groups().get(groupKey=groupid).execute()
 
         if not result:
             return {}

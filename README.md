@@ -44,7 +44,7 @@ $ python --version # Python 3.5.2
 ```
 
 # Install 
-- Instration on CentOS7
+- Installation on CentOS7
 ```sh
 $ git clone https://github.com/kodamap/googlecli
 $ cd googlecli
@@ -54,15 +54,15 @@ $ python setup.py build
 $ python setup.py install
 $ . ~/.bash_profile
 ```
-- Store the client_secret.json that you created earlier.
+- Store the "client_secret.json" you created earlier.
 ```sh
 $ ls  ~/client_secret.json
 /home/user/client_secret.json
 ```
 
 # How to use
-You need to permit the access to your directory at the first time.
-The permissions that you will be asked for are ....
+At first You need to permit the access to your Google Directory.
+The permissions that you will be asked for are below.
  - View users on your domain
  - View groups on your domain
  - View group subscriptions on your domain

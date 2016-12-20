@@ -1,4 +1,5 @@
 FROM centos:centos7
+MAINTAINER Hiroshi KODAMA
 
 RUN yum -y -q install zlib-devel bzip2 bzip2-devel readline-devel sqlite sqlite-devel openssl-devel patch gcc make git
 

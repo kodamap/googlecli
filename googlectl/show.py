@@ -32,7 +32,7 @@ class UserShow(ShowOne):
                    'customerId',
                    'includeInGlobalAddressList',
                    'changePasswordAtNextLogin',
-                   'agreedToTerms'
+                   'agreedToTerms',
                    )
         data = (result['primaryEmail'],
                 result['fullName'],
@@ -47,7 +47,7 @@ class UserShow(ShowOne):
                 result['customerId'],
                 result['includeInGlobalAddressList'],
                 result['changePasswordAtNextLogin'],
-                result['agreedToTerms']
+                result['agreedToTerms'],
                 )
         return (columns, data)
 
@@ -70,13 +70,13 @@ class GroupShow(ShowOne):
                    'Description',
                    'directMembersCount',
                    'Id',
-                   'AdminCreated'
+                   'AdminCreated',
                    )
         data = (result['email'],
                 result['name'],
                 result['description'],
                 result['directMembersCount'],
                 result['id'],
-                result['adminCreated']
+                result['adminCreated'],
                 )
         return (columns, data)
