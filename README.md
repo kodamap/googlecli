@@ -62,7 +62,7 @@ $ ls  ~/client_secret.json
 
 # How to use
 At first You need to permit the access to your Google Directory.
-The permissions that you will be asked for are below.
+The permissions that you will be asked for are as below.
  - View users on your domain
  - View groups on your domain
  - View group subscriptions on your domain
