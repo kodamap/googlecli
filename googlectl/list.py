@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import datetime
 import logging
 import os
@@ -53,8 +54,8 @@ class GroupList(Lister):
                 ((email, groups[email]) for email in groups)
                 )
 
-class MemberList(Lister):
-    "Show a Member List of the group in the domain."
+class GroupMemberList(Lister):
+    "Show a Group Member List of the group in the domain."
 
     log = logging.getLogger(__name__)
 

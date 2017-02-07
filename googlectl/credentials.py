@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 #
 # Reference:
 # Python Quickstart https://developers.google.com/admin-sdk/directory/v1/quickstart/python

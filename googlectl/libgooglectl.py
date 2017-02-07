@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import googlectl.credentials
 import httplib2
 from apiclient import discovery

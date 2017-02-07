@@ -1,8 +1,7 @@
+# -*- coding: utf-8 -*-
 import sys
-
 from cliff.app import App
 from cliff.commandmanager import CommandManager
-
 import pbr.version
 
 version_info = pbr.version.VersionInfo('googlectl')
