@@ -60,7 +60,7 @@ class GroupMemberList(Lister):
     log = logging.getLogger(__name__)
 
     def get_parser(self, prog_name):
-        parser = super(MemberList, self).get_parser(prog_name)
+        parser = super(GroupMemberList, self).get_parser(prog_name)
         parser = _append_global_args(parser)
         parser.add_argument('groupid', nargs=None, default=None)
         return parser

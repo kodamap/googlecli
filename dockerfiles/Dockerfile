@@ -12,3 +12,4 @@ RUN cd googlecli; \
     . /root/.bash_profile; \
     googlectl -h
 
+ENV LANG en_US.UTF-8
