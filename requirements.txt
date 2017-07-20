@@ -1,2 +1,2 @@
-oauth2client==3.0.0
+oauth2client>=3.0.0
 cliff>=2.2.0
