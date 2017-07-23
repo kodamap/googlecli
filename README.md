@@ -2,11 +2,15 @@
 Google Client that request to  Google Directory Api
 
 # Function
-- user list
-- group list
-- member list
-- user show
-- group show
+
+| command | description |
+| -- | --- |
+| user list | listing users in your domain |
+| group list | listing groups in your domain|
+| group member list | listing members of the group |
+| user show | show user information details |
+| group show | show group information details |
+
 
 # Prerequisites
 - Python Quickstart
@@ -52,7 +56,6 @@ $ pip install --upgrade google-api-python-client
 $ pip install -r requirements.txt
 $ python setup.py build
 $ python setup.py install
-$ . ~/.bash_profile
 ```
 - Store the "client_secret.json" you created earlier.
 ```sh
@@ -102,7 +105,7 @@ $ googlectl group list
 ```
 - member list (Getting the first 3 members in the group)
 ```sh
-$ googlectl member list -n 3 members@yourdomain.com
+$ googlectl group member list -n 3 members@yourdomain.com
 +-----------------------------+--------+
 | Email                       | Role   |
 +-----------------------------+--------+

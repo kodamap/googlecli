@@ -7,7 +7,7 @@ class Client(object):
     def __init__(self):
         self.credentials = googlectl.credentials.get_credentials()
         self.http = self.credentials.authorize(httplib2.Http())
-        self.service = discovery.build('admin', 'directory_v1', http=self.http)
+        self.service = discovery.build('admin', 'directory_v1', http=self.http, cache_discovery=False)
 
     def list_users(self, number):
         print('Getting the first ' + str(number) +' users in the domain')
