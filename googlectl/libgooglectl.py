@@ -10,60 +10,46 @@ class Client(object):
         self.service = discovery.build('admin', 'directory_v1', http=self.http, cache_discovery=False)
 
     def list_users(self, number):
-        print('Getting the first ' + str(number) +' users in the domain')
-
+        print("Getting the first {} users in the domain".format(str(number)))
         result = self.service.users().list(
             customer='my_customer',
             maxResults=number,
             orderBy='email').execute()
-
         users = result.get('users', [])
-
         if not users:
             return {}
-
         users = {user['primaryEmail']: user['isAdmin'] for user in result['users']}
         return users
 
     def list_groups(self, number):
-        print('Getting the first ' + str(number) +' groups in the domain')
-
+        print("Getting the first {} groups in the domain".format(str(number)))
         result = self.service.groups().list(
             customer='my_customer',
             maxResults=number
             ).execute()
-
         groups = result.get('groups', [])
-
         if not groups:
             return {}
-
         groups = {group['email']: group['description'] for group in result['groups']}
         return groups
 
-    def list_members(self, groupid, number):
-        print('Getting the first ' + str(number) +' members in the group')
-
+    def list_members(self, groupkey, number):
+        print("Getting the first {} members in the group {}".format(str(number), groupkey))
         result = self.service.members().list(
-            groupKey=groupid,
+            groupKey=groupkey,
             maxResults=number).execute()
 
         members = result.get('members', [])
-
         if not members:
             return {}
-
         members = {member['email']: member['role'] for member in result['members']}
         return members
 
     def show_user(self, email):
-        print('Getting the infomation details: ' + email)
-
+        print("Getting the infomation details: {}".format(email))
         result = self.service.users().get(userKey=email).execute()
-
         if not result:
             return {}
-
         data = {
             'primaryEmail': result['primaryEmail'],
             'fullName': result['name']['fullName'],
@@ -82,14 +68,11 @@ class Client(object):
         }
         return data
 
-    def show_group(self, groupid):
-        print('Getting the infomation details: ' + groupid)
-
-        result = self.service.groups().get(groupKey=groupid).execute()
-
+    def show_group(self, groupkey):
+        print("Getting the infomation details: {}".format(groupkey))
+        result = self.service.groups().get(groupKey=groupkey).execute()
         if not result:
             return {}
-
         data = {
             'email': result['email'],
             'name': result['name'],
@@ -99,3 +82,53 @@ class Client(object):
             'adminCreated': result['adminCreated']
         }
         return data
+
+    def insert_user(self, userinfo):
+        print("Inserting user in the domain")
+        result = self.service.users().insert(body=userinfo).execute()
+        return result
+
+    def insert_group(self, groupinfo):
+        print("Inserting a group in the domain")
+        result = self.service.groups().insert(body=groupinfo).execute()
+        return result
+
+    def insert_member(self, groupkey, memberinfo):
+        print("Inserting {} into {} as {} role".format(memberinfo['email'], groupkey, memberinfo['role']))
+        result = self.service.members().insert(
+                      groupKey=groupkey, body=memberinfo).execute()
+        return result
+
+    def delete_user(self, email):
+        print("Deleting a user {} in the domain".format(email))
+        result = self.service.users().delete(userKey=email).execute()
+        return result
+
+    def delete_group(self, groupkey):
+        print("Deleting a group {} in the domain".format(groupkey))
+        result = self.service.groups().delete(groupKey=groupkey).execute()
+        return result
+
+    def delete_member(self, groupkey, email):
+        print("Deleting {} from {}".format(email, groupkey))
+        result = self.service.members().delete(
+                      groupKey=groupkey, memberKey=email).execute()
+        return result
+
+    def update_user(self, email, userinfo):
+        print("Updating userinfo of {} in the domain".format(email))
+        result = self.service.users().update(
+                      userKey=email, body=userinfo).execute()
+        return result
+
+    def update_group(self, groupkey, groupinfo):
+        print("Updating groupinfo of {} info in the domain".format(groupkey))
+        result = self.service.groups().update(
+                      groupKey=groupkey, body=groupinfo).execute()
+        return result
+
+    def update_member(self, groupkey, email, memberinfo):
+        print("Updating {} in {} as {} role".format(memberinfo['email'], groupkey, memberinfo['role']))
+        result = self.service.members().update(
+                      groupKey=groupkey, memberKey=email, body=memberinfo).execute()
+        return result

@@ -1,4 +1,4 @@
-FROM kodamap/python3:v1
+FROM kodamap/python3x:latest
 MAINTAINER Hiroshi KODAMA
 
 RUN git clone https://github.com/kodamap/googlecli

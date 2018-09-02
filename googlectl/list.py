@@ -62,12 +62,12 @@ class GroupMemberList(Lister):
     def get_parser(self, prog_name):
         parser = super(GroupMemberList, self).get_parser(prog_name)
         parser = _append_global_args(parser)
-        parser.add_argument('groupid', nargs=None, default=None)
+        parser.add_argument('groupkey', nargs=None, default=None)
         return parser
 
     def take_action(self, parsed_args):
         client = googlectl.libgooglectl.Client()
-        members = client.list_members(parsed_args.groupid,parsed_args.number)
+        members = client.list_members(parsed_args.groupkey,parsed_args.number)
 
         return (('Email', 'Role'),
                 ((email, members[email]) for email in members)

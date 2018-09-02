@@ -59,12 +59,12 @@ class GroupShow(ShowOne):
 
     def get_parser(self, prog_name):
         parser = super(GroupShow, self).get_parser(prog_name)
-        parser.add_argument('groupid', nargs=None, default=None)
+        parser.add_argument('groupkey', nargs=None, default=None)
         return parser
 
     def take_action(self, parsed_args):
         client = googlectl.libgooglectl.Client()
-        result = client.show_group(parsed_args.groupid)
+        result = client.show_group(parsed_args.groupkey)
         #print(result)
         columns = ('Email',
                    'Name',
