@@ -33,8 +33,6 @@ class UserInsert(ShowOne):
             "isAdmin": parsed_args.isAdmin,
         }
         result = client.insert_user(userinfo)
-        print(result)
-
         columns = ('id',
                    'primaryEmail',
                    'givenName',

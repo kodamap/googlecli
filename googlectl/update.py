@@ -33,8 +33,6 @@ class UserUpdate(ShowOne):
             "isAdmin": parsed_args.isAdmin,
         }
         result = client.update_user(parsed_args.email, userinfo)
-        print(result)
-
         columns = ('id',
                    'primaryEmail',
                    'givenName',
@@ -103,7 +101,6 @@ class GroupMemberUpdate(ShowOne):
             'role': parsed_args.role
         }
         result = client.update_member(parsed_args.groupkey, parsed_args.email, memberinfo)
-        print(result)
         columns = ('id',
                    'email',
                    'role',
