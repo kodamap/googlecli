@@ -9,6 +9,14 @@ class Client(object):
         self.http = self.credentials.authorize(httplib2.Http())
         self.service = discovery.build('admin', 'directory_v1', http=self.http, cache_discovery=False)
 
+    def yes_or_no(self, question):
+        while "the answer is invalid":
+            reply = str(input(question+' (y/n): ')).lower().strip()
+            if reply[:1] == 'y':
+                return True
+            if reply[:1] == 'n':
+                return False
+
     def list_users(self, number):
         print("Getting the first {} users in the domain".format(str(number)))
         result = self.service.users().list(

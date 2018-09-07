@@ -140,7 +140,7 @@ $ googlectl user show alice@yourdomain
 'ascii' codec can't encode characters in position 371-373: ordinal not in range(128)
 ```
 
-# for docker
+# on docker
 ```sh
 $ git clone https://github.com/kodamap/googlecli
 $ cd googlecli
