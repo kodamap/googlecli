@@ -5,12 +5,15 @@ Google Client that request to  Google Directory Api
 
 | command | description |
 | -- | --- |
-| user list | listing users in your domain |
-| group list | listing groups in your domain|
-| group member list | listing members of the group |
-| user show | show user information details |
-| group show | show group information details |
+| (user, group, group member) list | list objects in your domain |
+| (user, group, group member) insert | insert(create) objects into your domain |
+| (user, group, group member) update | update objects |
+| (user, group, group member) delete | delete objects |
+| (user, group) show | list objects details |
 
+
+API Reference : 
+https://developers.google.com/admin-sdk/directory/v1/reference/
 
 # Prerequisites
 - Python Quickstart
@@ -29,7 +32,7 @@ https://github.com/yyuu/pyenv
 ```sh
 $ sudo yum install zlib-devel bzip2 bzip2-devel readline-devel sqlite sqlite-devel openssl-devel -y
 ```
-you may also need to install patch and gcc.
+you might need to install patch and gcc.
 ```sh
 $ sudo yum -y install patch gcc make git
 ```
@@ -42,9 +45,9 @@ $ echo 'eval "$(pyenv init -)"' >> ~/.bash_profile
 $ echo 'test -r ~/.bashrc && . ~/.bashrc' >> ~/.bash_profile
 $ . ~/.bash_profile
 $ pyenv install --list
-$ pyenv install 3.5.2
-$ pyenv global 3.5.2
-$ python --version # Python 3.5.2
+$ pyenv install 3.6.6
+$ pyenv global 3.6.6
+$ python --version # Python 3.6.6
 ```
 
 # Install 
