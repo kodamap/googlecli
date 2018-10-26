@@ -7,6 +7,7 @@ from cliff.lister import Lister
 
 import googlectl.libgooglectl
 
+
 def _append_global_args(parser):
     parser.add_argument('-n', '--number', \
         action='store', \
@@ -18,6 +19,7 @@ def _append_global_args(parser):
         help='The numbers of list (default: 20)', \
         metavar=None)
     return parser
+
 
 class UserList(Lister):
     "Show a list of Users in the domain."
@@ -33,9 +35,9 @@ class UserList(Lister):
         client = googlectl.libgooglectl.Client()
         users = client.list_users(parsed_args.number)
         #print(users)
-        return (('PrimaryEmail', 'isAdmin'),
-                ((primaryemail, users[primaryemail]) for primaryemail in users)
-                )
+        return (('PrimaryEmail', 'isAdmin'), (
+            (primaryemail, users[primaryemail]) for primaryemail in users))
+
 
 class GroupList(Lister):
     "Show a list of groups in the domain."
@@ -45,14 +47,17 @@ class GroupList(Lister):
     def get_parser(self, prog_name):
         parser = super(GroupList, self).get_parser(prog_name)
         parser = _append_global_args(parser)
+        parser.add_argument('-u', '--userkey', nargs=None, default=None)
         return parser
 
     def take_action(self, parsed_args):
         client = googlectl.libgooglectl.Client()
-        groups = client.list_groups(parsed_args.number)
-        return (('Email', 'Description'),
-                ((email, groups[email]) for email in groups)
-                )
+        if not parsed_args.userkey:
+            parsed_args.userkey = ""
+        groups = client.list_groups(parsed_args.userkey, parsed_args.number)
+        return (('Email', 'Description'), ((email, groups[email])
+                                           for email in groups))
+
 
 class GroupMemberList(Lister):
     "Show a Group Member List of the group in the domain."
@@ -67,8 +72,7 @@ class GroupMemberList(Lister):
 
     def take_action(self, parsed_args):
         client = googlectl.libgooglectl.Client()
-        members = client.list_members(parsed_args.groupkey,parsed_args.number)
+        members = client.list_members(parsed_args.groupkey, parsed_args.number)
 
-        return (('Email', 'Role'),
-                ((email, members[email]) for email in members)
-                )
+        return (('Email', 'Role'), ((email, members[email])
+                                    for email in members))
