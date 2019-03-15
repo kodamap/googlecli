@@ -1,2 +1,4 @@
-oauth2client>=3.0.0
+google-api-python-client
+google-auth-httplib2
+google-auth-oauthlib
 cliff>=2.2.0

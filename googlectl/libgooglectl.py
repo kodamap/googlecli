@@ -1,17 +1,14 @@
 # -*- coding: utf-8 -*-
-import googlectl.credentials
-import httplib2
-from apiclient import discovery
 
+import googlectl.credentials
+from googleapiclient.discovery import build
 
 class Client(object):
     def __init__(self):
         self.credentials = googlectl.credentials.get_credentials()
-        self.http = self.credentials.authorize(httplib2.Http())
-        self.service = discovery.build(
-            'admin', 'directory_v1', http=self.http, cache_discovery=False)
+        self.service = build('admin', 'directory_v1', credentials=self.credentials, cache_discovery=False)
 
-    def yes_or_no(self, question):
+    def yes_no(self, question):
         while "the answer is invalid":
             reply = str(input(question + ' (y/n): ')).lower().strip()
             if reply[:1] == 'y':
