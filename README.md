@@ -76,16 +76,17 @@ $ ls  ~/client_secret.json
 
 At first You need to permit the access to your Google Directory.
 The permissions that you will be asked for are as below.
- - View users on your domain
- - View groups on your domain
- - View group subscriptions on your domain
+ - View and manage group subscriptions on your domain
+ - View and manage the provisioning of groups on your domain
+ - View and manage the provisioning of users on your domain
 
-Paste the URL to your browser and permit the access.
+Paste the URL to your browser and permit the access. Then you can get authorization code.
 
 ```sh
 $ googlectl user list
 Please visit this URL to authorize this application::
     https://accounts.google.com/o/oauth2/auth?scope=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+Enter the authorization code:
 ```
 
 ## examle
