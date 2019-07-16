@@ -9,15 +9,15 @@ import googlectl.libgooglectl
 
 
 def _append_global_args(parser):
-    parser.add_argument('-n', '--number', \
-        action='store', \
-        nargs='?', \
-        const=None, \
-        default=20, \
-        type=str, \
-        choices=None, \
-        help='The numbers of list (default: 20)', \
-        metavar=None)
+    parser.add_argument('-n', '--number',
+                        action='store',
+                        nargs='?',
+                        const=None,
+                        default=20,
+                        type=str,
+                        choices=None,
+                        help='The numbers of list (default: 20)',
+                        metavar=None)
     return parser
 
 
@@ -34,7 +34,7 @@ class UserList(Lister):
     def take_action(self, parsed_args):
         client = googlectl.libgooglectl.Client()
         users = client.list_users(parsed_args.number)
-        #print(users)
+        # print(users)
         return (('PrimaryEmail', 'isAdmin'), (
             (primaryemail, users[primaryemail]) for primaryemail in users))
 

@@ -21,6 +21,7 @@ SCOPES = [
 CLIENT_SECRET_FILE = './client_secret.json'
 APPLICATION_NAME = 'Google Directory API Python'
 
+
 def get_credentials():
 
     creds = None
@@ -44,10 +45,13 @@ def get_credentials():
         else:
             flow = InstalledAppFlow.from_client_secrets_file(
                 CLIENT_SECRET_FILE, SCOPES)
-            creds = flow.run_local_server()
+            # https://google-auth-oauthlib.readthedocs.io/en/latest/reference/google_auth_oauthlib.flow.html
+            # Run the flow using the server strategy.
+            # creds = flow.run_local_server()
+            # Run the flow using the console strategy
+            creds = flow.run_console()
         # Save the credentials for the next run
         with open(credential_path, 'wb') as token:
             pickle.dump(creds, token)
-    
+
     return creds
-    
