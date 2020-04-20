@@ -66,7 +66,9 @@ SCOPES = [
 ]
 ```
 
-if you want to `insert`, `update`, `delete` using cli, change the scopes as below.
+if you want to `insert`, `update`, `delete` your resources using cli, change the scopes as below.
+
+**Warning:** Before making these changes, you need to fully understand the meaning. I strongly recommend to verify  in the test environment.
 
 ```py
 # If modifying these scopes, delete your previously saved credentials "./.credentials/"
