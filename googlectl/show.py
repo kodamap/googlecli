@@ -21,19 +21,38 @@ class UserShow(ShowOne):
         client = googlectl.libgooglectl.Client()
         result = client.show_user(parsed_args.email)
         #print(result)
-        columns = ('primaryEmail', 'fullName', 'isAdmin', 'creationTime',
-                   'lastLoginTime', 'ipWhitelisted', 'isDelegatedAdmin',
-                   'isMailboxSetup', 'suspended', 'emails', 'customerId',
-                   'includeInGlobalAddressList', 'changePasswordAtNextLogin',
-                   'agreedToTerms', 'joinedGroups', )
-        data = (result['primaryEmail'], result['fullName'], result['isAdmin'],
-                result['creationTime'], result['lastLoginTime'],
-                result['ipWhitelisted'], result['isDelegatedAdmin'],
-                result['isMailboxSetup'], result['suspended'],
-                result['emails'], result['customerId'],
-                result['includeInGlobalAddressList'],
-                result['changePasswordAtNextLogin'], result['agreedToTerms'],
-                result['joinedGroups'], )
+        columns = ('primaryEmail',
+                   'id',
+                   'fullName',
+                   'isAdmin',
+                   'creationTime',
+                   'lastLoginTime',
+                   'ipWhitelisted',
+                   'isDelegatedAdmin',
+                   'isMailboxSetup',
+                   'suspended',
+                   'emails',
+                   'customerId',
+                   'includeInGlobalAddressList',
+                   'changePasswordAtNextLogin',
+                   'agreedToTerms',
+                   )
+        data = (result.get('primaryEmail'), 
+                result.get('id'),
+                result.get('fullName'),
+                result.get('isAdmin'),
+                result.get('creationTime'),
+                result.get('lastLoginTime'),
+                result.get('ipWhitelisted'),
+                result.get('isDelegatedAdmin'),
+                result.get('isMailboxSetup'),
+                result.get('suspended'),
+                result.get('emails'),
+                result.get('customerId'),
+                result.get('includeInGlobalAddressList'),
+                result.get('changePasswordAtNextLogin'),
+                result.get('agreedToTerms'),
+                )
         return (columns, data)
 
 
@@ -51,9 +70,17 @@ class GroupShow(ShowOne):
         client = googlectl.libgooglectl.Client()
         result = client.show_group(parsed_args.groupkey)
         #print(result)
-        columns = ('Email', 'Name', 'Description', 'directMembersCount', 'Id',
+        columns = ('email',
+                   'id',
+                   'name',
+                   'directMembersCount',
+                   'description',
                    'AdminCreated', )
-        data = (result['email'], result['name'], result['description'],
-                result['directMembersCount'], result['id'],
-                result['adminCreated'], )
+        data = (result.get('email'),
+                result.get('id'),
+                result.get('name'), 
+                result.get('directMembersCount'),
+                result.get('description'),
+                result.get('adminCreated'),
+                )
         return (columns, data)

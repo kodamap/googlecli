@@ -24,10 +24,6 @@ class Client(object):
         users = result.get('users', [])
         if not users:
             return {}
-        users = {
-            user['primaryEmail']: user['isAdmin']
-            for user in result['users']
-        }
         return users
 
     def list_groups(self, userkey, number):
@@ -41,10 +37,6 @@ class Client(object):
         groups = result.get('groups', [])
         if not groups:
             return {}
-        groups = {
-            group['email']: group['description']
-            for group in result['groups']
-        }
         return groups
 
     def list_members(self, groupkey, number):
@@ -56,69 +48,21 @@ class Client(object):
         members = result.get('members', [])
         if not members:
             return {}
-        members = {
-            member['email']: member['role']
-            for member in result['members']
-        }
         return members
 
     def show_user(self, email):
         print("Getting the infomation details: {}".format(email))
         result = self.service.users().get(userKey=email).execute()
-        groups = self.service.groups().list(
-            userKey=email, maxResults=200).execute()
         if not result:
             return {}
-        data = {
-            'primaryEmail':
-            result['primaryEmail'],
-            'fullName':
-            result['name']['fullName'],
-            'isAdmin':
-            result['isAdmin'],
-            'creationTime':
-            result['creationTime'],
-            'lastLoginTime':
-            result['lastLoginTime'],
-            'ipWhitelisted':
-            result['ipWhitelisted'],
-            'isDelegatedAdmin':
-            result['isDelegatedAdmin'],
-            'isMailboxSetup':
-            result['isMailboxSetup'],
-            'suspended':
-            result['suspended'],
-            'emails':
-            result['emails'],
-            'customerId':
-            result['customerId'],
-            'includeInGlobalAddressList':
-            result['includeInGlobalAddressList'],
-            'changePasswordAtNextLogin':
-            result['changePasswordAtNextLogin'],
-            'agreedToTerms':
-            result['agreedToTerms'],
-            'joinedGroups': [
-                groups['groups'][i]['email']
-                for i in range(len(groups['groups']))
-            ]
-        }
-        return data
+        return result
 
     def show_group(self, groupkey):
         print("Getting the infomation details: {}".format(groupkey))
         result = self.service.groups().get(groupKey=groupkey).execute()
         if not result:
             return {}
-        data = {
-            'email': result['email'],
-            'name': result['name'],
-            'description': result['description'],
-            'directMembersCount': result['directMembersCount'],
-            'id': result['id'],
-            'adminCreated': result['adminCreated']
-        }
-        return data
+        return result
 
     def insert_user(self, userinfo):
         print("Inserting user in the domain")

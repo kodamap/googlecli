@@ -10,7 +10,7 @@ Google Client that request to  Google Directory Api
 | (user, group, group member) insert | insert(create) objects into your domain |
 | (user, group, group member) update | update objects |
 | (user, group, group member) delete | delete objects |
-| (user, group) show | list objects details |
+| (user, group) show | list details of the objects |
 
 
 API Reference : 
@@ -25,52 +25,58 @@ https://developers.google.com/admin-sdk/directory/v1/reference/
   - Input the Product name shown to users in OAuth consent screen tab
   - Select "Other" Application type and input the name of Client ID
   - Download the json file (client_secret_xxxxxxxxx.json)
-  - Move this file to your working directory and rename it "client_secret.json"
+  - Store this file into the `googlecli` directory (which is this repository's clone) and rename it "client_secret.json"
 
 - Python 3.6+
 
-https://github.com/yyuu/pyenv
-
-```sh
-$ sudo yum install zlib-devel bzip2 bzip2-devel readline-devel sqlite sqlite-devel openssl-devel -y
-```
-you might need to install patch and gcc.
-```sh
-$ sudo yum -y install patch gcc make git
-```
-install python3
-```sh
-$ git clone https://github.com/yyuu/pyenv.git ~/.pyenv
-$ echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bash_profile
-$ echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bash_profile
-$ echo 'eval "$(pyenv init -)"' >> ~/.bash_profile
-$ echo 'test -r ~/.bashrc && . ~/.bashrc' >> ~/.bash_profile
-$ . ~/.bash_profile
-$ pyenv install --list
-$ pyenv install 3.6.6
-$ pyenv global 3.6.6
-$ python --version # Python 3.6.6
-```
-
 # Install 
 
-- Installation on CentOS7
+- This is an installation example on Linux
+
+This example create `venv` into the `googlecli` folder, you can ajust where to create it. 
 
 ```sh
 $ git clone https://github.com/kodamap/googlecli
-$ cd googlecli
-$ pip install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib
-$ pip install -r requirements.txt
-$ python setup.py build
-$ python setup.py install
+$ python3 -m venv googlecli
+$ cd googlecli; . bin/activate
+(googlecli) $ pip install --upgrade pip
+(googlecli) $ pip install -r requirements.txt
+(googlecli) $ python setup.py build
+(googlecli) $ python setup.py install
 ```
 
-- Store the "client_secret.json" you created earlier.
+- Store the `client_secret.json`, which you created at the `Prerequisites`, into the `googlecli` directory.
 
 ```sh
-$ ls  ~/client_secret.json
-/home/user/client_secret.json
+(googlecli) $ ls /home/<username>/googlecli/client_secret.json
+/home/<username>/googlecli/client_secret.json
 ```
+
+
+# Role and Scopes
+
+Default Scopes is `readonly`(see credentials.py). You need to have `G Suite Admin Role` in your domain. 
+
+```py
+# If modifying these scopes, delete your previously saved credentials "./.credentials/"
+SCOPES = [
+    'https://www.googleapis.com/auth/admin.directory.user.readonly',
+    'https://www.googleapis.com/auth/admin.directory.group.readonly',
+    'https://www.googleapis.com/auth/admin.directory.group.member.readonly'
+]
+```
+
+if you want to `insert`, `update`, `delete` using cli, change the scopes as below.
+
+```py
+# If modifying these scopes, delete your previously saved credentials "./.credentials/"
+SCOPES = [
+    'https://www.googleapis.com/auth/admin.directory.user',
+    'https://www.googleapis.com/auth/admin.directory.group',
+    'https://www.googleapis.com/auth/admin.directory.group.member'
+]
+```
+
 
 # How to use
 
@@ -91,48 +97,71 @@ Enter the authorization code:
 
 ## examle
 
+show usage (-h option)
+
+```sh
+$ googlectl user list -h
+usage: googlectl user list [-h] [-f {csv,json,table,value,yaml}] [-c COLUMN]
+                           [--quote {all,minimal,none,nonnumeric}]
+                           [--noindent] [--max-width <integer>] [--fit-width]
+                           [--print-empty] [--sort-column SORT_COLUMN]
+                           [-n [NUMBER]]
+```
+
 list command returns 20 results ( no -n option : default value 20)
 
 - user list
+
 ```sh
 $ googlectl user list
-+-----------------------------+---------+
-| PrimaryEmail                | isAdmin |
-+-----------------------------+---------+
-| alice@yourdomain.com        | False   |
-| bob@yourdomain.com          | True    |
-+-----------------------------+---------+
++----------------------+--------------+---------+-------------+-----------+--------------------------+--------------------------+
+| primaryEmail         | fullName     | isAdmin | orgUnitPath | suspended | creationTime             | lastLoginTime            |
++----------------------+--------------+---------+-------------+-----------+--------------------------+--------------------------+
+| alice@yourdomain.com | alice aaa    | True    | /           | False     | 2010-01-01T00:00:00.000Z | 2018-01-01T00:00:00.000Z |
+| bob@yourdomain.com   | bob bbb      | False   | /           | False     | 2010-01-01T00:00:00.000Z | 2018-01-01T00:00:00.000Z |
++----------------------+--------------+---------+-------------+-----------+--------------------------+--------------------------+
 ```
 
-you can use it like openstack client
-
-```sh
-$ googlectl
-(googlectl) user list
-```
 - group list
 
 ```sh
 $ googlectl group list
-+----------------------+-------------+
-| Email                | Description |
-+----------------------+-------------+
-| members@yourdomain.com  | test     |
-+----------------------+-------------+
++-----------------------------+------------------+--------------------+--------------+--------------+
+| email                       | name             | directMembersCount | description  | adminCreated |
++-----------------------------+------------------+--------------------+--------------+--------------+
+| group1@yourdomain.com       | group mail1      | 2                  | xxxxxxxxx    |  False       |
+| group2@yourdomain.com       | group mail2      | 1                  | xxxxxxxxx    |  True        |
+| group3@yourdomain.com       | group mail2      | 1                  | xxxxxxxxx    |  True        |
++-----------------------------+------------------+--------------------+--------------+--------------+
 ```
 
 - member list (Getting the first 3 members in the group)
 
 ```sh
-$ googlectl group member list -n 3 members@yourdomain.com
-+-----------------------------+--------+
-| Email                       | Role   |
-+-----------------------------+--------+
-| alice@yourdomain.com        | OWNER  |
-| bob@yourdomain.com          | MEMBER |
-| john@yourdomain.com         | MEMBER |
-+-----------------------------+--------+
+$ googlectl group member list -n 3 group1@yourdomain.com
++----------------------+--------+-------+--------+
+| email                | role   | type  | status |
++----------------------+--------+-------+--------+
+| alice@yourdomain.com | OWNER  | USER  | ACTIVE |
+| bob@yourdomain.com   | MEMBER | USER  | ACTIVE |
+| group@yourdomain.com | MEMBER | GROUP | ACTIVE |
++----------------------+--------+-------+--------+
 ```
+
+- member list joined groups per user
+
+```sh
+googlectl group list -u alice@yourdomain.com
++-----------------------------+------------------+--------------------+--------------+--------------+
+| email                       | name             | directMembersCount | description  | adminCreated |
++-----------------------------+------------------+--------------------+--------------+--------------+
+| group1@yourdomain.com       | group mail1      | 3                  | xxxxxxxxx    |  False       |
+| group2@yourdomain.com       | group mail2      | 3                  | xxxxxxxxx    |  True        |
++-----------------------------+------------------+--------------------+--------------+--------------+
+```
+
+
+
 
 - Show detail infomation of the user
 
@@ -170,27 +199,11 @@ $ googlectl user show alice@yourdomain
 'ascii' codec can't encode characters in position 371-373: ordinal not in range(128)
 ```
 
-# on docker
-
-```sh
-$ git clone https://github.com/kodamap/googlecli
-$ cd googlecli
-$ docker build -t centos/googlecli:ver1.0 dockerfiles
-$ docker run -itd --name googlecli centos/googlecli:ver1.0 /bin/bash
-$ docker ps
-CONTAINER ID        IMAGE                     COMMAND             CREATED             STATUS              PORTS               NAMES
-fc3d02b55084        centos/googlecli:ver1.0   "/bin/bash"         2 minutes ago       Up 2 minutes                            googlecli
-$ docker exec -it googlecli /bin/bash
-[root@fc3d02b55084 /]# . /root/.bash_profile
-[root@fc3d02b55084 /]# googlectl -h
-usage: googlectl [--version] [-v | -q] [--log-file LOG_FILE] [-h] [--debug]
-```
-
 # Reference
 
 - Admin Directory API
 
-https://developers.google.com/resources/api-libraries/documentation/admin/directory_v1/python/latest/index.html
+https://developers.google.com/admin-sdk/directory/v1/reference
 
 - Python Quickstart
 

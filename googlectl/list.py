@@ -34,9 +34,18 @@ class UserList(Lister):
     def take_action(self, parsed_args):
         client = googlectl.libgooglectl.Client()
         users = client.list_users(parsed_args.number)
-        # print(users)
-        return (('PrimaryEmail', 'isAdmin'), (
-            (primaryemail, users[primaryemail]) for primaryemail in users))
+        columns = ('primaryEmail', 'fullName', 'isAdmin', 'orgUnitPath', 'suspended',
+                   'creationTime', 'lastLoginTime')
+        data = ((user.get('primaryEmail'),
+                 user.get('name').get('fullName'),
+                 user.get('isAdmin'),
+                 user.get('orgUnitPath'),
+                 user.get('suspended'),
+                 user.get('creationTime'),
+                 user.get('lastLoginTime'),
+                 )
+                for user in users)
+        return (columns, data)
 
 
 class GroupList(Lister):
@@ -55,8 +64,15 @@ class GroupList(Lister):
         if not parsed_args.userkey:
             parsed_args.userkey = ""
         groups = client.list_groups(parsed_args.userkey, parsed_args.number)
-        return (('Email', 'Description'), ((email, groups[email])
-                                           for email in groups))
+        columns = ('email', 'name', 'directMembersCount', 'description', 'adminCreated')
+        data = ((group.get('email'),
+                 group.get('name'),
+                 group.get('directMembersCount'),
+                 group.get('description'),
+                 group.get('adminCreated'),
+                 )
+                for group in groups)
+        return (columns, data)
 
 
 class GroupMemberList(Lister):
@@ -73,6 +89,11 @@ class GroupMemberList(Lister):
     def take_action(self, parsed_args):
         client = googlectl.libgooglectl.Client()
         members = client.list_members(parsed_args.groupkey, parsed_args.number)
-
-        return (('Email', 'Role'), ((email, members[email])
-                                    for email in members))
+        columns = ('email', 'role', 'type', 'status')
+        data = ((member.get('email'),
+                 member.get('role'),
+                 member.get('type'),
+                 member.get('status'),
+                 )
+                for member in members)
+        return (columns, data)

@@ -11,12 +11,18 @@ from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 
-# If modifying these scopes, delete your previously saved credentials
-# at ~/.credentials/admin-directory_v1-python-quickstart.json
+# If modifying these scopes, delete your previously saved credentials "./.credentials/"
+"""
 SCOPES = [
     'https://www.googleapis.com/auth/admin.directory.user',
     'https://www.googleapis.com/auth/admin.directory.group',
     'https://www.googleapis.com/auth/admin.directory.group.member'
+]
+"""
+SCOPES = [
+    'https://www.googleapis.com/auth/admin.directory.user.readonly',
+    'https://www.googleapis.com/auth/admin.directory.group.readonly',
+    'https://www.googleapis.com/auth/admin.directory.group.member.readonly'
 ]
 CLIENT_SECRET_FILE = './client_secret.json'
 APPLICATION_NAME = 'Google Directory API Python'
@@ -29,8 +35,8 @@ def get_credentials():
     # created automatically when the authorization flow completes for the first
     # time.
 
-    home_dir = os.path.expanduser('~')
-    credential_dir = os.path.join(home_dir, '.credentials')
+    current_dir = os.path.expanduser('./')
+    credential_dir = os.path.join(current_dir, '.credentials')
     if not os.path.exists(credential_dir):
         os.makedirs(credential_dir)
     credential_path = os.path.join(credential_dir, 'token.pickle')
