@@ -82,20 +82,25 @@ SCOPES = [
 
 # How to use
 
-At first You need to permit the access to your Google Directory.
+```sh
+$ googlectl user list
+```
+
+The first time it is run, the browser will launch and redirect to the following URL:
+
+```
+https://accounts.google.com/o/oauth2/auth/oauthchooseaccount?response_type=code&client_id=xxxx
+```
+
+Login to Google and authorize the permissions on the OAuth consent screen.
+
+You need to permit the access to your Google Directory..
 The permissions that you will be asked for are as below.
+
  - View and manage group subscriptions on your domain
  - View and manage the provisioning of groups on your domain
  - View and manage the provisioning of users on your domain
 
-Paste the URL to your browser and permit the access. Then you can get authorization code.
-
-```sh
-$ googlectl user list
-Please visit this URL to authorize this application::
-    https://accounts.google.com/o/oauth2/auth?scope=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-Enter the authorization code:
-```
 
 ## examle
 
@@ -185,14 +190,6 @@ $ googlectl group show members@yourdomain.com
 $ rm -rf ~/.credentials/
 ```
 
-- ascii codec can't Error
-
-Error occurs when you use python2.7+ . Use Python3.
-
-```sh
-$ googlectl group list -f csv
-'ascii' codec can't decode byte 0xe3 in position 31: ordinal not in range(128)
-```
 
 Check your LANG Environment variable. Try "export LANG=en_US.UTF-8".
 
@@ -205,7 +202,7 @@ $ googlectl user show alice@yourdomain
 
 - Admin Directory API
 
-https://developers.google.com/admin-sdk/directory/v1/reference
+https://developers.google.com/admin-sdk/directory/reference/rest
 
 - Python Quickstart
 
